@@ -27,9 +27,11 @@ namespace CoffeShops.Data
 
         public void Delete(Guid companyId, Guid userId)
         {
-            var user = _coffeeShopsDbContext.Users.FirstOrDefault(m => m.CompanyId == companyId && m.Id == userId);
+            var user = _coffeeShopsDbContext.Users.Where(m => m.CompanyId == companyId && m.Id == userId).FirstOrDefault();
             _coffeeShopsDbContext.Users.Remove(user);
-            _coffeeShopsDbContext.SaveChanges();    
+            _coffeeShopsDbContext.SaveChanges();
+        
+
         }
     }
 }
