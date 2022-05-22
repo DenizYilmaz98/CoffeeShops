@@ -1,0 +1,78 @@
+﻿@{
+    Layout = "~/Views/Dashboard/Shared/_Layout.cshtml";
+}
+<div>
+    <table id="dataArea" class="display" width="100%" data-page-length='25'>
+        <thead>
+            <tr>
+                <th>Masa</th>
+                <th>Ürün</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+</div>
+    <script>
+
+
+
+    function refreshOrders() {
+        var token = localStorage.getItem("token");
+        fetch(ApiUrl +'Order/ListForKitchen' , {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+
+                $('#dataArea').DataTable({
+                    data: data.list,
+                    columns: [
+                        { data: 'tableName' },
+                        { data: 'productName' },                      
+                        {
+                            data: null,
+                            render: function (data, type, row) {
+                                return "<button class='btn btn-success' onclick='javascript:kitchenStatus(\""+row.orderId+"\")'>Hazır</button>";
+                            }
+                        }
+                    ]
+                });
+
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+        function kitchenStatus(orderId) {
+            
+
+                var token = localStorage.getItem("token");
+                const data = { orderId: orderId};
+            fetch(ApiUrl +'Order/KitchenStatus', {
+                    method: 'POST', // or 'PUT
+                    headers: {
+                        'Content-Type': 'application/json',
+                        "token": token
+                    },
+                    body: JSON.stringify(data),
+                })
+                    .then(data => {
+                        document.location.reload();
+                        
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+
+                    });
+        }
+    $(document).ready(function () {
+        refreshOrders();
+    })
+</script>
+
+

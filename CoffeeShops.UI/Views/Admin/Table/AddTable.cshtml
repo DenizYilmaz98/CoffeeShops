@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Admin/Shared/_Layout.cshtml";
+}
+<style>
+    #cont {
+        display: inline-block;
+        width: 500px;
+        height: 400px;
+        border: solid 1px green;
+        border-radius: 5px;
+        position: relative;
+        left: 350px;
+        top: 70px;
+    }
+
+        #cont input {
+            margin-top: 50px;
+        }
+
+        #cont h2 {
+            text-align: center;
+        }
+
+    #cont2 {
+        color: goldenrod;
+        position: relative;
+        left: 250px;
+        bottom: 80px;
+        font-size: 30px !important;
+    }
+
+    #cont3 {
+        margin-left: 190px;
+        font-size: 80px !important;
+    }
+</style>
+<script>
+    function tableno() {
+        var tableno = $("#tableno").val();
+
+        const data = { tableno:tableno };
+        var token = localStorage.getItem("token");
+
+        fetch('http://api.coffeeshops.com/table/addtable', {
+            method: 'POST', // or 'PUT
+            headers: {
+                'Content-Type': 'application/json',
+                "token": token
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) alert("kayıt başarılı")
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+
+            });
+    }
+
+</script>
+<a href="/Admin/Table">Masalar Sayfasına Dön</a>
+<div class="login-register-form">
+
+    <div id="cont" class="row">
+        <h2>Ürün Kayıt</h2>
+        <div class="col-12 mb-20">
+            <input class="form-control" type="text" placeholder="Table No" id="tableno">
+        </div>
+       
+        <div class="col-12 mt-10">
+            <button class="button button-android button-outline" onclick="javascript:addtable()">Kaydet</button>
+        </div>
+        <i id="cont2" class="fa-solid fa-droplet"></i>
+        <i id="cont3" class="fa-solid fa-mug-saucer"></i>
+    </div>
+
+</div>

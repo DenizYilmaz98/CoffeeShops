@@ -1,0 +1,226 @@
+﻿@model Guid;
+@{
+    Layout = "~/Views/Dashboard/Shared/_Layout.cshtml";
+}
+
+<style>
+    #productArea {
+        display:inline-block;
+    }
+
+    .productWrapper {
+        padding: 10px;
+        float:left;
+        
+    }
+
+    .productCard {
+        height: 100px;
+        width: 100px;
+        background-color: white;
+        border: 1px solid #bdb0b0;
+        text-align: center;
+        cursor: copy;
+        border-radius: 10px;
+    }
+    #orderArea {
+       overflow-y:scroll;
+       width:300px;
+       height: calc(100% - 200px);
+    }
+    #mainWrapper {
+        height: calc(100% - 55px);
+        display: flex;
+    }
+    .leftArea {
+    display:grid;
+    
+    }
+    .leftBottomArea {
+        height:200px;
+        position:absolute;
+        bottom:0px;
+    
+    }
+    
+</style>
+<script>
+    var Id = '@Model';
+    function refreshOrders() {
+        var token = localStorage.getItem("token");
+        fetch(ApiUrl +'Order/ListByTableId?TableId=' + Id, {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                var result = 0;
+                var statustext = "";
+                var context = "";
+                for (var i = 0; i < data.list.length; i++) {
+                    var order = data.list[i];
+                    if (order.statusId == 0) {
+
+                        statustext = "bekliyor";
+                    }
+                    else if (order.statusId == 2) { 
+                        statustext="hazır"
+                    }
+                     context = context + "<div class='orderItem' orderId='" + order.orderId + "' >" + order.productName + "   /   " + order.productPrice+ " / " + statustext + "</div>";
+                                result = result + order.productPrice;
+                }
+                
+                $("#orderArea").html(context)
+                $("#totalArea").text(result);
+               
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+    function Delete(id) {
+        var token = localStorage.getItem("token");
+        fetch(ApiUrl +'order/delete?id=' + id, {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
+            .then(data => {
+                document.location.reload();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+    function init() {
+        refreshOrders();
+
+        var token = localStorage.getItem("token");
+
+        fetch(ApiUrl +'product/list', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
+
+            .then(response => response.json())
+            .then(data => {
+           
+                var context = "";
+                for (var i = 0; i < data.list.length; i++) {
+                    var product = data.list[i];
+                    context = context + "<div class='productWrapper'><div class='productCard' productId='" + product.id + "' productPrice='" + product.productPrice + "'>" + product.productName + '<br>' + product.unitprice + "</div></div>";
+
+                }
+
+                $("#productArea").html(context);
+
+
+                 
+                $(".productCard").click(function ()
+                {
+
+                    var productName = $(this).text()
+                    var productPrice = $(this).attr("")
+                    var productId = $(this).attr("productid");
+                    var tableId = Id;
+
+                    const data = { productId: productId, tableId: tableId};
+                    var token = localStorage.getItem("token");
+
+                    fetch(ApiUrl +'Order/Add', {
+                        method: 'POST', // or 'PUT
+                        headers: {
+                            'Content-Type': 'application/json',
+                            "token": token
+                        }, 
+                        body: JSON.stringify(data),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            refreshOrders();
+                          
+                        })
+                        .catch((error) => {
+                            console.error('Error:', error);
+
+                        });
+
+
+                })
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    $(document).ready(function () {
+        init();
+    })
+
+
+    function payment(paymentTypeId) {
+       
+       
+        alert("Ödeme Gerçekleşmiştir. Teşekkür Ederiz...");
+        var orderIds = new Array();
+        var orders = $(".orderItem");
+        for (var i = 0; i < orders.length; i++) {
+            var order = orders[i];
+          
+
+                
+            var orderId = $(order).attr("orderid");
+            orderIds.push(orderId);
+            
+        }
+    
+        var token = localStorage.getItem("token");
+        const data = { orderIds: orderIds, paymentTypeId: paymentTypeId };
+        fetch(ApiUrl +'Order/Payment', {
+            method: 'POST', // or 'PUT
+            headers: {
+                'Content-Type': 'application/json',
+                "token": token
+            },
+            body: JSON.stringify(data),
+        }) 
+            .then(data => {
+                refreshOrders();
+                $('payment').onclick
+             
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+
+            });
+    }
+</script>
+
+<div id="mainWrapper">
+    <div class="leftArea">
+        <div id="orderArea"></div>
+        <div class="leftBottomArea">
+            <div><h3>Toplam:</h3><span id="totalArea">0</span></div>
+            <button class="btn btn-success" onclick="javascript:payment(1)">Nakit</button>
+            <button class="btn btn-warning" onclick="javascript: payment(2)">Kredi Kartı</button>
+           
+        </div>
+ 
+    </div>
+
+
+
+    <div id="productArea"></div>
+
+</div>
+
+

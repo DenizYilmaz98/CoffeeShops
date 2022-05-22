@@ -1,0 +1,85 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    function register() {
+        var email = $("#email").val();
+        var password = $("#password").val();
+        var company = $("#companyname").val();
+
+        var firstname = $("#firstname").val();
+        var lastname = $("#lastname").val();
+        const data = { email: email, password: password, companyname: company, firstname: firstname, lastname: lastname };
+
+        fetch(ApiUrl +'user/register', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.companyId) {
+                    document.location.href = "/user/login/";
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+<style>
+   img{
+       width:510px;
+       height:350px;
+       position:relative;
+       left:600px;
+       bottom:350px;
+       border-radius:5px;
+   }
+    .login-register-form{
+        position:relative;
+        
+    }
+</style>
+<h1>Hoşgeldiniz</h1>
+<div class="login-register-form">
+    <div class="row">
+        <div class="col-12 mb-20">
+            <h5>Firma İsmi</h5>
+            <input class="form-control" type="text" placeholder="Firma İsmi" id="companyname">
+        </div>
+        <div class="col-12 mb-20">
+            <h5>Kulanıcı İsmi</h5>
+            <input class="form-control" type="text" placeholder="Kulanıcı İsmi" id="firstname">
+        </div>
+        <div class="col-12 mb-20">
+            <h5>Kulanıcı Soy İsmi</h5>
+            <input class="form-control" type="text" placeholder="Kulanıcı Soy İsmi" id="lastname">
+        </div>
+        <div class="col-12 mb-20">
+            <h5>Email</h5>
+            <input class="form-control" type="text" placeholder="Email" id="email">
+        </div>
+        <div class="col-12 mb-20">
+            <h5>Şifre</h5>
+            <input class="form-control" type="password" placeholder="Şifre" id="password">
+        </div>
+        <div class="col-12 mt-10">
+            <button class="button button-primary button-outline" onclick="javascript: register()"><i class="fa-solid fa-mug-saucer"></i>Kayit Ol</button>
+        </div>
+    </div>
+</div>
+<link rel="shortcut icon" type="image/x-icon" href="~/admin/assets/images/favicon.ico">
+<link rel="stylesheet" href="~/admin/assets/css/vendor/bootstrap.min.css">
+<link rel="stylesheet" href="~/admin/assets/css/vendor/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="~/admin/assets/css/vendor/font-awesome.min.css">
+<link rel="stylesheet" href="~/admin/assets/css/vendor/themify-icons.css">
+<link rel="stylesheet" href="~/admin/assets/css/vendor/cryptocurrency-icons.css">
+<link rel="stylesheet" href="~/admin/assets/css/plugins/plugins.css">
+<link rel="stylesheet" href="~/admin/assets/css/helper.css">
+<link rel="stylesheet" href="~/admin/assets/css/style.css">
+<link id="cus-style" rel="stylesheet" href="~/admin/assets/css/style-primary.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<div><img src="~/İmages/Kahve1.jpg" alt="Alternate Text" /></div>

@@ -1,0 +1,87 @@
+﻿<html>
+<head>
+    <link rel="stylesheet" href="~/admin/assets/css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="~/admin/assets/css/vendor/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="~/admin/assets/css/vendor/font-awesome.min.css">
+    <link rel="stylesheet" href="~/admin/assets/css/vendor/themify-icons.css">
+    <link rel="stylesheet" href="~/admin/assets/css/vendor/cryptocurrency-icons.css">
+    <link rel="stylesheet" href="~/admin/assets/css/plugins/plugins.css">
+    <link rel="stylesheet" href="~/admin/assets/css/helper.css">
+    <link rel="stylesheet" href="~/admin/assets/css/style.css">
+    <link id="cus-style" rel="stylesheet" href="~/admin/assets/css/style-primary.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/admin/assets/js/plugins/datatables/datatables.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var ApiUrl = '@Startup.Settings.ApiUrl'
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" asp-area="" asp-controller="Dashboard" asp-action="Index"><i class="fa-solid fa-mug-saucer">Coffee Shops</i></a>
+        <div class="navbar-brand" style="padding:3px;">
+            <a class="btn btn-success" style="position:absolute; left:250px;bottom:5px;" href="/Dashboard/Table/KitchenOrder">Mutfak Ekranı</a>
+        </div>
+        <div class="navbar-brand" style="padding:3px;">
+            <a class="btn btn-success" style="position:absolute; left:400px;bottom:5px;" href="/Dashboard">Masa Ekranı</a>
+        </div>
+      
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="userArea" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userArea">
+                <a class="dropdown-item" href="/Admin">Yönet</a>
+                <a class="dropdown-item" href="javascript:logout()">Çıkış</a>
+            </div>
+        </div>
+
+    </nav>
+    @RenderBody()
+
+
+    <script>
+        function logout() { 
+            localStorage.removeItem("token");
+            document.location.href = "/User/Login";
+        }
+        function getUser() {
+            var token = localStorage.getItem("token");
+            fetch(ApiUrl +'user/detail', {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token': token
+                }
+            })
+                .then(response => {
+                    if (response.status == 401) {
+                        localStorage.removeItem("token");
+                        document.location.href = "/User/Login"
+                        return;
+                    }
+                    return response.json();
+                })
+                .then(data => {
+
+                    var context = data.companyName + " / " + data.firstName;
+                    $("#userArea").text(context);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    });
+           
+        }
+        var token = localStorage.getItem("token");
+        if (!token) {
+            document.location.href = "/User/Login"
+        }
+        $(document).ready(function () {
+            getUser();
+        })
+
+
+    </script>
+</body>
+</html>

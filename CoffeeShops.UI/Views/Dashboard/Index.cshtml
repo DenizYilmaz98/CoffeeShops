@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "~/Views/Dashboard/Shared/_Layout.cshtml";
+}
+<style>
+    #tableArea {
+        width: 100%;
+        height: 100%;
+        background-color: #eae8e8;
+    }
+
+    .tableCart {
+        width: 120px;
+        height: 120px;
+        background-color: white;
+        border: 1px solid #bdb0b0;
+        border-radius: 8px;
+        text-align: center;
+        margin: 30px 20px;
+    }
+</style>
+
+<div id="tableArea">
+
+</div>
+<script>
+    function init() {
+        var token = localStorage.getItem("token");
+        fetch(ApiUrl +'table/list', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                var context = "";
+                for (var i = 0; i < data.list.length; i++) {
+                    var table = data.list[i];
+                    context = context + "<a class='tableCart' href='Dashboard/Table/" + table.id + "'><div> " + table.tableNo + "</div></a>";
+
+                }
+                $("#tableArea").html(context);
+
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
+    $(document).ready(function () {
+        init();
+    })
+</script>

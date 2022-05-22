@@ -1,0 +1,13 @@
+.main {
+    height:100%;
+}
+.menuarea {
+    background-color:lightgray
+
+}
+.contentarea {
+padding:20px;
+}
+body {
+background-color:#f9f9f9 !important;
+}

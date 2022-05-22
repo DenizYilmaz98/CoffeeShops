@@ -1,0 +1,126 @@
+﻿@model Guid;
+
+@{
+    Layout = "~/Views/Admin/Shared/_Layout.cshtml";
+}
+
+<style>
+    #cont {
+        display: inline-block;
+        width: 800px;
+        height: 750px;
+        border: solid 1px green;
+        border-radius: 5px;
+        position: relative;
+        left: 350px;
+        top: 70px;
+    }
+
+        #cont input {
+            margin-top: 50px;
+        }
+
+        #cont h2 {
+            text-align: center;
+        }
+
+    #cont2 {
+        color: gray;
+        position: relative;
+        left: 350px;
+        bottom: 80px;
+        font-size: 30px !important;
+    }
+
+    #cont3 {
+        margin-left: 290px;
+        font-size: 80px !important;
+    }
+</style>
+<script>
+
+    var Id = '@Model';
+    function save() {
+        var firstName = $("#firstName").val();
+        var lastName = $("#lastName").val();
+        var email = $("#email").val();
+        var password = $("#password").val();
+
+        const data = { firstName: firstName, lastName: lastName, email: email, password: password ,Id:Id, };
+        var token = localStorage.getItem("token");
+    
+        fetch(ApiUrl+'user/save', {
+            method: 'POST', // or 'PUT
+            headers: {
+                'Content-Type': 'application/json',
+                "token": token
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) alert("kayıt başarılı")
+                document.location.href = "/Admin/User";
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+
+            });
+    }
+    $(document).ready(function () {
+        if (Id != "") {
+            var token = localStorage.getItem("token");
+            fetch(ApiUrl +'user/get?id=' + Id, {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                    'token': token
+                }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+
+                        $("#firstName").val(data.firstName);
+                        $("#lastName").val(data.lastName)
+                        $("#email").val(data.email);
+                        $("#password").val(data.password);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+    })
+</script>
+<div class="login-register-form">
+
+    <div id="cont" class="row">
+        <h2>Kullanıcı Kayıt</h2>
+        <div class="col-12 mb-20">
+                <h5>İsim</h5>
+           
+            <input class="form-control" type="text" placeholder="İsim" id="firstName">
+        </div>
+        <div class="col-12 mb-20">
+            <h5>Soy İsim</h5>
+            <input class="form-control" type="text" placeholder="Soy İsim" id="lastName">
+        </div>
+        <div class="col-12 mb-20">
+            <h5>Email</h5>
+            <input class="form-control" type="text" placeholder="Email" id="email">
+        </div>
+        <div class="col-12 mb-20">
+            <h5>Şifre</h5>
+            <input class="form-control" type="password" placeholder="Şifre giriniz" id="password">
+        </div>
+        <div class="col-12 mt-10">
+          
+            <button class="button button-android button-outline" onclick="javascript:save()">Kaydet</button>
+        </div>
+        <i id="cont2" class="fa-solid fa-person-falling"></i>
+        <i id="cont3" class="fa-solid fa-mug-saucer"></i>
+    </div>
+
+</div>

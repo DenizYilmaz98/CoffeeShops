@@ -1,0 +1,72 @@
+﻿@{
+    Layout = "~/Views/Admin/Shared/_Layout.cshtml";
+}
+<a class="btn btn-success" href="/Admin/User/Add">Kullanıcı Ekle</a>
+<div>
+    <table id="dataArea" class="display" width="100%" data-page-length='25'>
+        <thead>
+            <tr>
+                <th>İsim</th>
+                <th>Soyİsim</th>
+                <th>Email</th>
+                <th></th>
+
+               
+            </tr>
+        </thead>
+    </table>
+</div>
+<script>
+    function Delete(id) {
+        var token = localStorage.getItem("token");
+        fetch('user/delete?id=' + id, {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
+            .then(data => {
+                document.location.reload();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+    function init() {
+        var token = localStorage.getItem("token");
+        fetch(ApiUrl +'user/listusers', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+                'token': token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                
+                $('#dataArea').DataTable({
+                    data: data.list,
+                    columns: [
+                        { data: 'firstName' },
+                        { data: 'lastName' },
+                        { data: 'email' }, 
+                        {
+                            data: null,
+                            render: function (data, type, row) {
+                                return "<a href='/Admin/User/Detail?id=" + row.id + "'>Detay</a> / <a href=\"javascript:Delete('" + row.id + "')\">Sil</a>";
+                            }
+                        }
+                    ],
+                });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
+    $(document).ready(function () {
+        init();
+    })
+</script>
+
