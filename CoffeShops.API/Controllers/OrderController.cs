@@ -73,35 +73,6 @@ namespace CoffeeShops.API.Controllers
         }
 
 
-        //[HttpPost("Add")]
-        //[Authorize]
-        //public AddOrderViewModel Add(AddOrderInputModel addOrderInputModel)
-        //{
-        //    var model = addOrderInputModel.Adapt<AddOrderDto>();
-        //    model.CompanyId = _userContext.CompanyId;
-        //    var orderId = _orderService.Add(model);
-        //    return new AddOrderViewModel { OrderId=orderId};
-
-        //}
-
-
-        //[HttpPost("List")]
-        //[Authorize]
-        //public OrderListViewModel List()
-        //{
-        //    var orderResponseModel = _orderService.List(_userContext.CompanyId);
-
-        //    return new OrderListViewModel()
-        //    {
-        //        List = orderResponseModel.Select(m => m.Adapt<OrderListViewModel>()).ToList()
-        //    };
-        //}
-
-        //[HttpPost("Delete")]
-        //[Authorize]
-        //public void Delete(Guid companyId)
-        //{
-        //    _orderService.Delete(companyId);
-        //}
+       
     }
 }

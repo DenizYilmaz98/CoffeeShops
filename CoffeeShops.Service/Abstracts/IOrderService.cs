@@ -10,9 +10,7 @@ namespace CoffeeShops.Service.Abstracts
 {
     public interface IOrderService
     {
-        //public Guid Add(AddOrderDto orderDto);
-        //List<OrderListResponseDto> List(Guid orderId);
-        //void Delete(Guid orderId);
+       
         public Guid CreateOrder(CreateOrderDto createOrderDto);
         public List<OrderListByTableIdViewDto> GetOrderListByTableId(Guid TableId);
         public List<OrderListByKitchenIdViewDto> GetOrderListForKitchen(Guid companyId);
