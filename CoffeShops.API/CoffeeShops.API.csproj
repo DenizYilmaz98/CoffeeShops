@@ -88,7 +88,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="docx\" />
     <Folder Include="obj\Debug\net5.0\Razor\Views\Tables\" />
   </ItemGroup>
 

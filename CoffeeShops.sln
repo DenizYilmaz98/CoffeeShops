@@ -11,7 +11,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeShops.Data", "CoffeSho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeShops.UI", "CoffeeShops.UI\CoffeeShops.UI.csproj", "{033DCEBB-21EE-4309-9E3B-E025FACC403A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeShops.Core", "CoffeeShops.Core\CoffeeShops.Core.csproj", "{E989BA34-320A-4DD5-81C6-D8A284623906}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoffeeShops.Core", "CoffeeShops.Core\CoffeeShops.Core.csproj", "{E989BA34-320A-4DD5-81C6-D8A284623906}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{92C92D27-C6AD-4641-AD85-F8F74D639A62}"
+	ProjectSection(SolutionItems) = preProject
+		docs\CoffeeShops Ödev SQL.docx = docs\CoffeeShops Ödev SQL.docx
+		docs\CoffeeShops Ödev SQL2.docx = docs\CoffeeShops Ödev SQL2.docx
+		docs\CoffeeShops Ödev.docx = docs\CoffeeShops Ödev.docx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
