@@ -16,60 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.cs" />
-    <Compile Include="obj\Debug\net5.0\CoffeeShops.API.AssemblyInfo.cs" />
-    <Compile Include="obj\Debug\net5.0\CoffeeShops.API.MvcApplicationPartsAssemblyInfo.cs" />
-    <Compile Include="obj\Debug\net5.0\CoffeShops.API.AssemblyInfo.cs" />
-    <Compile Include="obj\Debug\net5.0\CoffeShops.API.MvcApplicationPartsAssemblyInfo.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="obj\CoffeeShops.API.csproj.nuget.dgspec.json" />
-    <Content Include="obj\CoffeShops.API.csproj.nuget.dgspec.json" />
-    <Content Include="obj\Debug\net5.0\CoffeeShops.API.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\net5.0\CoffeShops.API.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\net5.0\staticwebassets\CoffeeShops.API.StaticWebAssets.xml" />
-    <Content Include="obj\Debug\net5.0\staticwebassets\CoffeShops.API.StaticWebAssets.xml" />
-    <Content Include="obj\project.assets.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="obj\CoffeeShops.API.csproj.nuget.g.props" />
-    <None Include="obj\CoffeeShops.API.csproj.nuget.g.targets" />
-    <None Include="obj\CoffeShops.API.csproj.nuget.g.props" />
-    <None Include="obj\CoffeShops.API.csproj.nuget.g.targets" />
-    <None Include="obj\Debug\net5.0\apphost.exe" />
-    <None Include="obj\Debug\net5.0\CoffeeShops.API.AssemblyInfoInputs.cache" />
-    <None Include="obj\Debug\net5.0\CoffeeShops.API.assets.cache" />
-    <None Include="obj\Debug\net5.0\CoffeeShops.API.csproj.AssemblyReference.cache" />
-    <None Include="obj\Debug\net5.0\CoffeeShops.API.csproj.CopyComplete" />
-    <None Include="obj\Debug\net5.0\CoffeeShops.API.csproj.CoreCompileInputs.cache" />
-    <None Include="obj\Debug\net5.0\CoffeeShops.API.dll" />
-    <None Include="obj\Debug\net5.0\CoffeeShops.API.GeneratedMSBuildEditorConfig.editorconfig" />
-    <None Include="obj\Debug\net5.0\CoffeeShops.API.genruntimeconfig.cache" />
-    <None Include="obj\Debug\net5.0\CoffeeShops.API.MvcApplicationPartsAssemblyInfo.cache" />
-    <None Include="obj\Debug\net5.0\CoffeeShops.API.pdb" />
-    <None Include="obj\Debug\net5.0\CoffeeShops.API.RazorTargetAssemblyInfo.cache" />
-    <None Include="obj\Debug\net5.0\CoffeeShops.API.Views.dll" />
-    <None Include="obj\Debug\net5.0\CoffeShops.API.AssemblyInfoInputs.cache" />
-    <None Include="obj\Debug\net5.0\CoffeShops.API.assets.cache" />
-    <None Include="obj\Debug\net5.0\CoffeShops.API.csproj.AssemblyReference.cache" />
-    <None Include="obj\Debug\net5.0\CoffeShops.API.csproj.CopyComplete" />
-    <None Include="obj\Debug\net5.0\CoffeShops.API.csproj.CoreCompileInputs.cache" />
-    <None Include="obj\Debug\net5.0\CoffeShops.API.dll" />
-    <None Include="obj\Debug\net5.0\CoffeShops.API.GeneratedMSBuildEditorConfig.editorconfig" />
-    <None Include="obj\Debug\net5.0\CoffeShops.API.genruntimeconfig.cache" />
-    <None Include="obj\Debug\net5.0\CoffeShops.API.MvcApplicationPartsAssemblyInfo.cache" />
-    <None Include="obj\Debug\net5.0\CoffeShops.API.pdb" />
-    <None Include="obj\Debug\net5.0\CoffeShops.API.RazorTargetAssemblyInfo.cache" />
-    <None Include="obj\Debug\net5.0\ref\CoffeeShops.API.dll" />
-    <None Include="obj\Debug\net5.0\ref\CoffeShops.API.dll" />
-    <None Include="obj\Debug\net5.0\staticwebassets\CoffeeShops.API.StaticWebAssets.Manifest.cache" />
-    <None Include="obj\Debug\net5.0\staticwebassets\CoffeShops.API.StaticWebAssets.Manifest.cache" />
-    <None Include="obj\project.nuget.cache" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Mapster" Version="7.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.15">
@@ -85,10 +31,6 @@
   
     <ProjectReference Include="..\CoffeeShops.Service\CoffeeShops.Service.csproj" />
     <ProjectReference Include="..\CoffeShops.Data\CoffeShops.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="obj\Debug\net5.0\Razor\Views\Tables\" />
   </ItemGroup>
 
 </Project>
